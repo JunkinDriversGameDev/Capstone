@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 using ModuloKart.HUD;
+    
 
 namespace ModuloKart.CustomVehiclePhysics
 {
@@ -168,7 +169,51 @@ namespace ModuloKart.CustomVehiclePhysics
 
     }
 
-    private void FixedUpdate()
+        int isCollisionHit;
+        public void OnCollisionEnter(Collision c)
+        {
+            if (c.gameObject.tag == "TrackColliders")
+
+            {
+                /* //  vehicleUpDirection.x = -1;
+                    accel_magnitude_float = 50f;
+                    max_accel_modified = 0;
+                    Debug.Log("Hit");
+                }
+                else if (vehicleUpDirection != c.contacts[0].normal)
+                {
+                    vehicleUpDirection.x = 0.45f;
+                    accel_magnitude_float = 100f;
+                    Debug.Log("Hit");
+                }*/
+
+                Vector3 tempReflect = Vector3.Reflect(vehicle_heading_transform.forward, c.contacts[0].normal);
+                isCollisionHit = 1;
+                if (Vector3.Dot(vehicle_heading_transform.forward, c.contacts[0].normal) <= 0.75)
+                {
+                    accel_magnitude_float *= 0.25f;
+                    //Vector3 reflectXZDirection = new Vector3()
+                    //vehicle_heading_transform.forward = Vector3.Reflect(vehicle_heading_transform.forward, c.contacts[0].normal);
+                    //vehicle_heading_transform.forward = Vector3.Lerp(vehicle_heading_transform.forward, new Vector3(tempReflect.x, 0, tempReflect.z),0.1f);
+                    //vehicle_heading_transform.forward = new Vector3(tempReflect.x, 0, tempReflect.z);
+                    Debug.Log("hit non direct collision (at an angle)");
+
+
+
+                }
+                else if (Vector3.Dot(vehicle_heading_transform.forward, c.contacts[0].normal) > 0.75)
+                {
+                    accel_magnitude_float *= 0.1f;
+                    //vehicle_heading_transform.forward = Vector3.Reflect(vehicle_heading_transform.forward, c.contacts[0].normal);
+                    //vehicle_heading_transform.forward = Vector3.Lerp(vehicle_heading_transform.forward, new Vector3(tempReflect.x, 0, tempReflect.z), 0.1f);
+                    //vehicle_heading_transform.forward = new Vector3(tempReflect.x, 0, tempReflect.z);
+                    Debug.Log("hit - more or less directly");
+                }
+            }
+            isCollisionHit = 0;
+        }
+
+        private void FixedUpdate()
         {
             //InitializePlayerJoystick();
             if (!isControllerInitialized) return;
@@ -382,8 +427,8 @@ namespace ModuloKart.CustomVehiclePhysics
                 vehicle_speed_turn_ratio = 0.01f;
             }
 
-            vehicle_heading_transform.rotation *= Quaternion.Euler(0, steer_magnitude_float * STEER * vehicle_air_control * vehicle_speed_turn_ratio * Time.fixedDeltaTime, 0);
-
+            //vehicle_heading_transform.rotation *= Quaternion.Euler(0, steer_magnitude_float * STEER * vehicle_air_control * vehicle_speed_turn_ratio * Time.fixedDeltaTime, 0);
+            vehicle_heading_transform.rotation *= Quaternion.Euler(0, steer_magnitude_float * STEER * vehicle_air_control * Time.fixedDeltaTime, 0);
             //Initiate Drift Mode
             //if (Input.GetKey(KeyCode.Space) || Input.GetAxis("RightTrigger_P1") > 0)
             if (Input.GetKey(KeyCode.Space) || Input.GetButton(input_drift))
@@ -652,8 +697,12 @@ namespace ModuloKart.CustomVehiclePhysics
             //if (Input.GetKey(KeyCode.W) || Input.GetButton("A"))
             if (Input.GetKey(KeyCode.W) || Input.GetAxis(input_accelerate) > 0)
             {
-                if (accel_magnitude_float < max_accel_modified)
+                if (accel_magnitude_float < (max_accel_modified - isCollisionHit * max_accel_modified))
                 {
+                    if (isCollisionHit == 1)
+                    {
+                        Debug.Log("isCollisionHit: " + (isCollisionHit * max_accel_modified) + "vs. " + max_accel_modified);
+                    }
                     accel_magnitude_float += (ACCEL + nitros_speed_float) * Time.fixedDeltaTime;
                     if (accel_magnitude_float > max_accel_modified)
                     {
