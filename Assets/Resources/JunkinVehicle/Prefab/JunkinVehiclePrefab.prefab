@@ -132,9 +132,9 @@ MonoBehaviour:
   is_MotionBlur: 0
   is_grounded: 1
   gravity_float: 0
-  max_accel_modified: 0
+  target_accel_modified: 0
   wheel_steer_float: 0
-  max_steer_modified: 0
+  target_steer_modified: 0
   accel_magnitude_float: 0
   steer_magnitude_float: 0
   brake_magnitude_float: 0
@@ -145,17 +145,20 @@ MonoBehaviour:
   vehicle_air_height: 0
   vehicle_air_control: 0
   vehicle_speed_turn_ratio: 0
+  isReverse: 0
   is_drift: 0
   is_nitrosboost: 0
   max_gravity_float: 250
-  max_steer_float: 15
+  max_steer_float: 5
+  min_steer_float: 2.5
   max_accel_float: 125
+  min_accel_float: -69
   max_brake_float: 100
   min_drift_correction_float: 0.05
-  max_drift_correction_float: 1
+  max_drift_correction_float: 0.5
   drift_correction_multiplier: 0.05
   drift_accel_multiplier_float: 0.05
-  drift_turn_ratio_float: 0.25
+  drift_turn_ratio_float: 0.5
   max_nitros_meter_float: 100
   max_nitros_speed_float: 100
   nitros_depletion_rate: 10
@@ -165,6 +168,7 @@ MonoBehaviour:
     m_Bits: 4294967033
   slope_ray_dist_float: 1000
   ACCEL: 50
+  REVERSE: 25
   DRAG: 25
   ROTATIONAL_DRAG: 25
   GRAVITY: 1000
@@ -179,6 +183,7 @@ MonoBehaviour:
   input_steering: Horizontal
   input_projectile: X_P
   input_accelerate: Vertical
+  input_reverse: LeftTrigger_P
   input_drift: Jump
   input_nitros: NitroKey
   input_ItemPrev: LeftBumper_P
@@ -2256,6 +2261,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4465922841864535856, guid: 921a3ff88856fe04ebc86b196fd8cc59,
+        type: 3}
+      propertyPath: vehicleBehavior
+      value: 
+      objectReference: {fileID: 1870334581}
+    - target: {fileID: 4465922841864535856, guid: 921a3ff88856fe04ebc86b196fd8cc59,
+        type: 3}
+      propertyPath: particleSystem
+      value: 
+      objectReference: {fileID: 3234446535332749580}
     - target: {fileID: 19800000, guid: 921a3ff88856fe04ebc86b196fd8cc59, type: 3}
       propertyPath: simulationSpeed
       value: 5
@@ -2304,16 +2319,6 @@ PrefabInstance:
       propertyPath: InheritVelocityModule.m_Curve.scalar
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4465922841864535856, guid: 921a3ff88856fe04ebc86b196fd8cc59,
-        type: 3}
-      propertyPath: vehicleBehavior
-      value: 
-      objectReference: {fileID: 1870334581}
-    - target: {fileID: 4465922841864535856, guid: 921a3ff88856fe04ebc86b196fd8cc59,
-        type: 3}
-      propertyPath: particleSystem
-      value: 
-      objectReference: {fileID: 3234446535332749580}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 921a3ff88856fe04ebc86b196fd8cc59, type: 3}
 --- !u!4 &3234446535318594636 stripped

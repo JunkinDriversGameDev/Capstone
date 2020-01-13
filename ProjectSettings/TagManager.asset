@@ -16,6 +16,11 @@ TagManager:
   - Door
   - Hood
   - TrackColliders
+  - third
+  - second
+  - first
+  - fourth
+  - TempTransform
   layers:
   - Default
   - TransparentFX
