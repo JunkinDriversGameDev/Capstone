@@ -19,14 +19,19 @@ public class ui_controller : MonoBehaviour
     public bool has_hood = true;
     public bool has_Milk = true;
     public bool has_Maxine_extra = true;
+    public bool has_Paul_shield = false;
     public int playerNum;
     public GameObject vechicle;
     public GameObject wheeldetacher;
+    SimpleCharacterSelection CharacterSelection;
+    GameManager GameManager;
     
     // Start is called before the first frame update
     void Start()
     {
         vehicleBehaviour = GameObject.FindObjectOfType<VehicleBehavior>();
+        CharacterSelection = gameObject.GetComponentInParent<SimpleCharacterSelection>();
+        GameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         if (gameObject.tag == "Player1")
             playerNum = 1;
         else if (gameObject.tag == "Player2")
@@ -49,9 +54,9 @@ public class ui_controller : MonoBehaviour
         }
 
 
-
-
-
+       
+       
+      
 
 
     }
@@ -64,6 +69,59 @@ public class ui_controller : MonoBehaviour
         }
 
         return false;
+    }
+
+    //lose a random part function
+    public void LoseRandomPart()
+    {
+        bool retry = true;
+        int r=0;
+        while (retry)
+        {
+            if (allItemsGone())
+            {
+                retry = false;
+                return;
+            }
+               
+            r= Random.Range(0,10);
+            if (ui_item[r].activeSelf)
+            {
+                retry = false;
+                ui_item[r].SetActive(false);
+            }
+
+        }
+        switch ((r))
+        {
+            case 0:
+                has_tire_1 = false;
+                break;
+            case 2:
+                has_tire_2 = false;
+                break;
+            case 5:
+                has_tire_3 = false;
+                break;
+            case 7:
+                has_tire_4 = false;
+                break;
+            case 6:
+                has_Milk = false;
+                break;
+            case 3:
+                has_door_1 = false;
+                break;
+            case 4:
+                has_door_2 = false;
+                break;
+            case 8:
+                has_Maxine_extra = false;
+                break;
+            case 1:
+                has_hood = false;
+                break;
+        }
     }
     public void RegainPart(int partRecovered)
     {
@@ -94,11 +152,21 @@ public class ui_controller : MonoBehaviour
             case 8:
                 has_Maxine_extra = true;
                 break;
+            case 1:
+                has_hood = true;
+                break;
         }
     }
     // Update is called once per frame
     void Update()
     {
+        if (CharacterSelection.whichCharacterDidISelectDuringTheGameScene == AVerySimpleEnumOfCharacters.Paul && GameManager.beginCountDown)
+        {
+            has_Paul_shield = true;
+            GameManager.beginCountDown = false;
+        }
+
+
         //if (!vechicle.GetComponent<VehicleBehavior>().isControllerInitialized) return;
         if (!vechicle.GetComponent<VehicleBehavior>().playerHUD.simpleCharacterSeleciton.isCharacterSelected) return;
 

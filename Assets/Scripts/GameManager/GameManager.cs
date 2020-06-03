@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [Header("Initialization of All Players")]
-    private bool beginCountDown;
+    public bool beginCountDown;
     public bool GameStart;
     public int InitializedPlayers;
     // Start is called before the first frame update

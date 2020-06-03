@@ -13,17 +13,13 @@ public class ForceField : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider c)
-    {
-        if (c.gameObject.CompareTag("TestField"))
-        {
-            rend.enabled = true;
-            Destroy(gameObject, 1.5f);
-        }
-        
-    }
+   
     
-        
+       public void Activate()
+    {
+        rend.enabled = true;
+        Destroy(gameObject, 1.5f);
+    } 
         
     
 }

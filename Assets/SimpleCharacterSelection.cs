@@ -10,7 +10,7 @@ public enum AVerySimpleEnumOfCharacters
 {
     First_The_Worst = 1,
     Second_The_Best = 2,
-    Third_The_One_With_The_Hairy_Chest = 3,
+    Paul = 3,
     Maxine = 4,
     NotInGame = 0
 }

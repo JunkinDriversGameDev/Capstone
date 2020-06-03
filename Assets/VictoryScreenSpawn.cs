@@ -47,7 +47,7 @@ public class VictoryScreenSpawn : MonoBehaviour
                 case AVerySimpleEnumOfCharacters.Second_The_Best:
                     Instantiate(Toby, First.position, First.rotation);
                     break;
-                case AVerySimpleEnumOfCharacters.Third_The_One_With_The_Hairy_Chest:
+                case AVerySimpleEnumOfCharacters.Paul:
                     Instantiate(Paul, First.position, First.rotation);
                     break;
 
@@ -67,7 +67,7 @@ public class VictoryScreenSpawn : MonoBehaviour
                 case AVerySimpleEnumOfCharacters.Second_The_Best:
                     Instantiate(Toby, Second.position, Second.rotation);
                     break;
-                case AVerySimpleEnumOfCharacters.Third_The_One_With_The_Hairy_Chest:
+                case AVerySimpleEnumOfCharacters.Paul:
                     Instantiate(Paul, Second.position, Second.rotation);
                     break;
 
@@ -87,7 +87,7 @@ public class VictoryScreenSpawn : MonoBehaviour
                 case AVerySimpleEnumOfCharacters.Second_The_Best:
                     Instantiate(Toby, Third.position, Third.rotation);
                     break;
-                case AVerySimpleEnumOfCharacters.Third_The_One_With_The_Hairy_Chest:
+                case AVerySimpleEnumOfCharacters.Paul:
                     Instantiate(Paul, Third.position, Third.rotation);
                     break;
 
@@ -107,7 +107,7 @@ public class VictoryScreenSpawn : MonoBehaviour
                 case AVerySimpleEnumOfCharacters.Second_The_Best:
                     Instantiate(Toby, Fourth.position, Fourth.rotation);
                     break;
-                case AVerySimpleEnumOfCharacters.Third_The_One_With_The_Hairy_Chest:
+                case AVerySimpleEnumOfCharacters.Paul:
                     Instantiate(Paul, Fourth.position, Fourth.rotation);
                     break;
 

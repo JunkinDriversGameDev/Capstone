@@ -9,6 +9,9 @@ public class Opponent_Vehicle_Damage : MonoBehaviour
     public Queue<GameObject> lostParts = new Queue<GameObject>();
     GameObject lostPart;
     VehicleBehavior vehicleBehavior;
+    SimpleCharacterSelection CharacterSelection;
+    ForceField Shield;
+    ui_controller itemSelector;
     public float damageForce = 50000;
     float collisionDamage = 5;
     public Rigidbody dF;
@@ -16,7 +19,10 @@ public class Opponent_Vehicle_Damage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        vehicleBehavior = FindObjectOfType<VehicleBehavior>();
+        vehicleBehavior = gameObject.GetComponent<VehicleBehavior>();
+        CharacterSelection = vehicleBehavior.playerHUD.simpleCharacterSeleciton;
+        itemSelector = vehicleBehavior.playerHUD.GetComponentInChildren<ui_controller>();
+        Shield = gameObject.GetComponentInChildren<ForceField>();
         //dF = GetComponent<Rigidbody>();
     }
 
@@ -31,8 +37,15 @@ public class Opponent_Vehicle_Damage : MonoBehaviour
     {
         if (c.transform != transform)
         {
+
+
             if (c.gameObject.CompareTag("Obstacle"))
             {
+                if (itemSelector.has_Paul_shield)
+                {
+                    itemSelector.has_Paul_shield = false;
+                    return;
+                }
 
                 if (!isLimitCollision)
                 {
@@ -65,7 +78,7 @@ public class Opponent_Vehicle_Damage : MonoBehaviour
                     }
 
                     Debug.Log(lostPart);
-                    lostPart.active = false;
+                    lostPart.SetActive(false);
                     // Stores all the lost item in queue.
                     if (lostParts != null)
                     {
@@ -84,9 +97,23 @@ public class Opponent_Vehicle_Damage : MonoBehaviour
                     StartCoroutine(LimitCollision());
                 }
             }
+            else if (c.gameObject.CompareTag("Tire"))
+            {
+                if (itemSelector.has_Paul_shield)
+                {
+                    itemSelector.has_Paul_shield = false;
+                    Shield.Activate();
+                    return;
+                }
+                else
+                {
+                    itemSelector.LoseRandomPart();
+                }
+            }
+
         }
 
-        //Debug.Log()
+        
     }
 
     //Decrease performance of vehicle by a certain amount.

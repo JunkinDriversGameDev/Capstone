@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2114073813018701021}
   - component: {fileID: 2114073813018701020}
   - component: {fileID: 2114073813018701023}
+  - component: {fileID: 3239769295485343883}
   m_Layer: 0
   m_Name: ItemPickUp(Random)
   m_TagString: Untagged
@@ -106,4 +107,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  hud: {fileID: 0}
+  car: {fileID: 0}
+  wheels: {fileID: 0}
+  headsUp: {fileID: 0}
+--- !u!114 &3239769295485343883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114073813018701022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aaefc763ae836549bf60915440943c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle_pickup: {fileID: 3624390608166339291, guid: 10c8b5f4cedc3e446a5d09dd002a93d2,
+    type: 3}

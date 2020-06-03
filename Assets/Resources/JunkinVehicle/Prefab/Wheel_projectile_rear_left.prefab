@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 4830989100492869096}
   m_Layer: 8
   m_Name: Wheel_projectile_rear_left
-  m_TagString: CarMain
+  m_TagString: Tire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
