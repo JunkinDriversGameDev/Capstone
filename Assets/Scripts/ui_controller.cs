@@ -6,32 +6,31 @@ using ModuloKart.CustomVehiclePhysics;
 
 public class ui_controller : MonoBehaviour
 {
-   public GameObject[] ui_item;
-   public int item_selected;
-     VehicleBehavior vehicleBehaviour;
+    public GameObject[] ui_item;
+    public int item_selected;
+    VehicleBehavior vehicleBehaviour;
+    SimpleCharacterSelection character;
 
     public bool has_door_1 = true; //front right
-     public bool has_door_2 = true;
+    public bool has_door_2 = true;
     public bool has_tire_1 = true;
     public bool has_tire_2 = true;
     public bool has_tire_3 = true;
     public bool has_tire_4 = true;
     public bool has_hood = true;
     public bool has_Milk = true;
-    public bool has_Maxine_extra = true;
-    public bool has_Paul_shield = false;
+    public bool has_extra1 = false;
+    public bool has_extra2 = false;
+    //public bool has_Paul_extra = true;
     public int playerNum;
     public GameObject vechicle;
     public GameObject wheeldetacher;
-    SimpleCharacterSelection CharacterSelection;
-    GameManager GameManager;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         vehicleBehaviour = GameObject.FindObjectOfType<VehicleBehavior>();
-        CharacterSelection = gameObject.GetComponentInParent<SimpleCharacterSelection>();
-        GameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
+        character = GameObject.FindObjectOfType<SimpleCharacterSelection>();
         if (gameObject.tag == "Player1")
             playerNum = 1;
         else if (gameObject.tag == "Player2")
@@ -42,10 +41,10 @@ public class ui_controller : MonoBehaviour
             playerNum = 4;
 
         item_selected = 0;
-        ui_item = new GameObject[9];
+        ui_item = new GameObject[10];
         int i = 0;
-        
-        while (i < 9)
+
+        while (i < 10)
         {
             ui_item[i] = gameObject.transform.GetChild(i).gameObject;
             if (ui_item[i] == null)
@@ -54,74 +53,21 @@ public class ui_controller : MonoBehaviour
         }
 
 
-       
-       
-      
+
+
+
 
 
     }
 
- public   bool allItemsGone()
+    public bool allItemsGone()
     {
-        if (!has_door_1 && !has_door_2 && !has_hood && !has_Maxine_extra && !has_Milk && !has_tire_1 && !has_tire_2 && !has_tire_3 && !has_tire_4)
+        if (!has_door_1 && !has_door_2 && !has_hood && !has_extra1 && !has_extra2 && !has_Milk && !has_tire_1 && !has_tire_2 && !has_tire_3 && !has_tire_4)
         {
             return true;
         }
 
         return false;
-    }
-
-    //lose a random part function
-    public void LoseRandomPart()
-    {
-        bool retry = true;
-        int r=0;
-        while (retry)
-        {
-            if (allItemsGone())
-            {
-                retry = false;
-                return;
-            }
-               
-            r= Random.Range(0,10);
-            if (ui_item[r].activeSelf)
-            {
-                retry = false;
-                ui_item[r].SetActive(false);
-            }
-
-        }
-        switch ((r))
-        {
-            case 0:
-                has_tire_1 = false;
-                break;
-            case 2:
-                has_tire_2 = false;
-                break;
-            case 5:
-                has_tire_3 = false;
-                break;
-            case 7:
-                has_tire_4 = false;
-                break;
-            case 6:
-                has_Milk = false;
-                break;
-            case 3:
-                has_door_1 = false;
-                break;
-            case 4:
-                has_door_2 = false;
-                break;
-            case 8:
-                has_Maxine_extra = false;
-                break;
-            case 1:
-                has_hood = false;
-                break;
-        }
     }
     public void RegainPart(int partRecovered)
     {
@@ -150,26 +96,17 @@ public class ui_controller : MonoBehaviour
                 has_door_2 = true;
                 break;
             case 8:
-                has_Maxine_extra = true;
+                has_extra1 = true;
                 break;
-            case 1:
-                has_hood = true;
+            case 9:
+                has_extra2 = true;
                 break;
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if (CharacterSelection.whichCharacterDidISelectDuringTheGameScene == AVerySimpleEnumOfCharacters.Paul && GameManager.beginCountDown)
-        {
-            has_Paul_shield = true;
-            GameManager.beginCountDown = false;
-        }
-
-
-        //if (!vechicle.GetComponent<VehicleBehavior>().isControllerInitialized) return;
         if (!vechicle.GetComponent<VehicleBehavior>().playerHUD.simpleCharacterSeleciton.isCharacterSelected) return;
-
         if (Input.GetButtonDown(vechicle.GetComponent<VehicleBehavior>().input_ItemNext))
         {
             Debug.Log("TEST NEXT INPUT");
@@ -181,7 +118,7 @@ public class ui_controller : MonoBehaviour
             if (item_selected < 0)
 
             {
-                item_selected = 8;
+                item_selected = 9;
             }
 
             while (ui_item[item_selected].gameObject.activeSelf == false && !allItemsGone())
@@ -189,7 +126,7 @@ public class ui_controller : MonoBehaviour
                 item_selected -= 1;
                 if (item_selected < 0)
                 {
-                    item_selected = 8;
+                    item_selected = 9;
                 }
             }
 
@@ -209,12 +146,12 @@ public class ui_controller : MonoBehaviour
             item_selected += 1;
 
 
-            if (item_selected >= 9)
+            if (item_selected >= 10)
                 item_selected = 0;
             while (ui_item[item_selected].gameObject.activeSelf == false && !allItemsGone())
             {
                 item_selected += 1;
-                if (item_selected >= 9)
+                if (item_selected >= 10)
                 {
                     item_selected = 0;
                 }
@@ -311,9 +248,9 @@ public class ui_controller : MonoBehaviour
                         ui_item[item_selected].gameObject.SetActive(false);
                     }
                 }
-                    else
-                        Debug.Log("door already used");
-                
+                else
+                    Debug.Log("door already used");
+
             }
             else if (ui_item[item_selected].gameObject.tag == "Hood")
             {
@@ -342,14 +279,24 @@ public class ui_controller : MonoBehaviour
                 }
 
 
-            }   
-            else if (ui_item[item_selected].gameObject.tag== "Maxine_Extra_Parts")
+            }
+            else if (ui_item[item_selected].gameObject.tag == "Toby_Extra_Part")
             {
-                if(has_Maxine_extra)
+                if (has_extra1)
                 {
-                    vehicleBehaviour.GetComponentInChildren<Player_Maxine>().Maxine_Extrapart();
-                    Debug.Log("Used Maxine spl");
-                    has_Maxine_extra = false;
+                    vehicleBehaviour.GetComponentInChildren<Player_Maxine>().Maxine_Extrapart1();
+                    Debug.Log("Used toby/maxine spl");
+                    has_extra1 = false;
+                    ui_item[item_selected].gameObject.SetActive(false);
+                }
+            }
+            else if (ui_item[item_selected].gameObject.tag == "Maxine_Extra_Parts")
+            {
+                if (has_extra2)
+                {
+                    vehicleBehaviour.GetComponentInChildren<Player_Maxine>().Maxine_Extrapart2();
+                    Debug.Log("Used maxine spl");
+                    has_extra2 = false;
                     ui_item[item_selected].gameObject.SetActive(false);
                 }
             }
@@ -359,23 +306,48 @@ public class ui_controller : MonoBehaviour
             item_selected -= 1;
             if (item_selected < 0)
             {
-                item_selected = 8;
+                item_selected = 9;
             }
             while (ui_item[item_selected].gameObject.activeSelf == false && !allItemsGone())
             {
                 item_selected -= 1;
                 if (item_selected < 0)
                 {
-                    item_selected = 8;
+                    item_selected = 9;
                 }
             }
-
 
             ui_item[item_selected].transform.localScale += new Vector3(0.5f, 0.5f);
 
         }
-
-
     }
 
+        public void Initialize_Character(AVerySimpleEnumOfCharacters character)
+    {
+        switch (character)
+        {
+            case AVerySimpleEnumOfCharacters.Toby:
+                has_extra1 = true;
+                ui_item[8].SetActive(true);
+                break;
+
+            case AVerySimpleEnumOfCharacters.Felix:
+               
+                break;
+            case AVerySimpleEnumOfCharacters.Paul:
+                
+                break;
+            case AVerySimpleEnumOfCharacters.Maxine:
+                has_extra1 = true;
+                has_extra2 = true;
+                ui_item[8].SetActive(true);
+                ui_item[9].SetActive(true);
+                break;
+        }
+    }
+
+
+
+
+    
 }

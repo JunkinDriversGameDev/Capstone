@@ -29,7 +29,7 @@ TagManager:
   - Maxine_Extra_Parts
   - JumpObject
   - PickupCollider
-  - Game Manager
+  - Pickup
   layers:
   - Default
   - TransparentFX
