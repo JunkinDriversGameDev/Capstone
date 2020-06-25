@@ -16,7 +16,10 @@ namespace ModuloKart.CustomVehiclePhysics
     [RequireComponent(typeof(Rigidbody))]
     public class VehicleBehavior : MonoBehaviour
     {
+
         [Header("Debug")]
+        public bool isMusicPlaying = false;
+        public float counter;
         [SerializeField] public bool isCodeDebug = false;
         public GameObject wheel1, wheel2, wheel3, wheel4, hood;
         public GameObject cam;
@@ -995,16 +998,18 @@ namespace ModuloKart.CustomVehiclePhysics
             //if (Input.GetKey(KeyCode.RightControl) || Input.GetAxis("LeftTrigger") > 0)
             if (Input.GetKey(KeyCode.RightControl) || Input.GetButton(input_nitros))
             {
+                
                 if (!is_nitrosboost)
                 {
                     is_nitrosboost = true;
+                    counter += 1;
                     nitros_speed_float = max_nitros_speed_float;
                     if (isPostProfile)
                     {
                         if (is_MotionBlur) vehicle_camera_postprocess_behavior.profile.motionBlur.enabled = true;
                     }
                 }
-
+                
                 if (is_Cinematic_View)
                 {
                     if (vehicle_camera_transform.GetComponent<Camera>().fieldOfView < max_fov_float)
@@ -1012,7 +1017,42 @@ namespace ModuloKart.CustomVehiclePhysics
                         vehicle_camera_transform.GetComponent<Camera>().fieldOfView += Time.fixedDeltaTime * pan_away_float;
                     }
                 }
+
+
+                //AudioStuff
+                if (isMusicPlaying == false)
+                {
+                    isMusicPlaying = true;
+
+                    if (character.whichCharacterDidISelectDuringTheGameScene == AVerySimpleEnumOfCharacters.Felix)
+                    {
+                        AudioManager.instance.Play("Felix_Using_Nitro");
+                    }
+
+                    if (character.whichCharacterDidISelectDuringTheGameScene == AVerySimpleEnumOfCharacters.Maxine)
+                    {
+                        AudioManager.instance.Play("Max_Using_Nitro");
+                    }
+
+                    if (character.whichCharacterDidISelectDuringTheGameScene == AVerySimpleEnumOfCharacters.Paul)
+                    {
+                        AudioManager.instance.Play("Pauline_Using_Nitro");
+                    }
+
+                    if (character.whichCharacterDidISelectDuringTheGameScene == AVerySimpleEnumOfCharacters.Toby)
+                    {
+                        AudioManager.instance.Play("Tobias_Using_Nitro");
+                    }
+
+                  }
+                if (counter >= 7f)
+                {
+                    counter = 0;
+                    isMusicPlaying = false;
+                }
+
                 extra_nitros_meter_float = extra_nitros_meter_float > 0 ? extra_nitros_meter_float -= Time.fixedDeltaTime * nitros_depletion_rate : 0;
+
                 if (extra_nitros_meter_float <= 0)
                 {
                     nitros_meter_float = nitros_meter_float > 0 ? nitros_meter_float -= Time.fixedDeltaTime * nitros_depletion_rate : 0;
