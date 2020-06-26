@@ -9,6 +9,7 @@ public enum PauseMenuOption
     resume,
     menu,
     options,
+    controls,
     quit,
 }
 
@@ -27,10 +28,12 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject optionsMenuUI;
+    public GameObject controlsMenuUI;
 
     public GameObject ResumeButton;
     public GameObject MenuButton;
     public GameObject OptionsButton;
+    public GameObject ControlsButton;
     public GameObject QuitButton;
 
     public GameObject VolumeSlider;
@@ -44,6 +47,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(false);
+        controlsMenuUI.SetActive(false);
     }
 
     private void Update()
@@ -108,6 +112,7 @@ public class PauseMenu : MonoBehaviour
                         ResumeButton.SetActive(false);
                         MenuButton.SetActive(false);
                         OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(false);
                         QuitButton.SetActive(true);
                         break;
                     case PauseMenuOption.menu:
@@ -115,6 +120,7 @@ public class PauseMenu : MonoBehaviour
                         ResumeButton.SetActive(true);
                         MenuButton.SetActive(false);
                         OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(false);
                         QuitButton.SetActive(false);
                         break;
                     case PauseMenuOption.options:
@@ -122,13 +128,23 @@ public class PauseMenu : MonoBehaviour
                         ResumeButton.SetActive(false);
                         MenuButton.SetActive(true);
                         OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(false);
                         QuitButton.SetActive(false);
                         break;
-                    case PauseMenuOption.quit:
+                    case PauseMenuOption.controls:
                         mainMenuOption = PauseMenuOption.options;
                         ResumeButton.SetActive(false);
                         MenuButton.SetActive(false);
                         OptionsButton.SetActive(true);
+                        ControlsButton.SetActive(false);
+                        QuitButton.SetActive(false);
+                        break;
+                    case PauseMenuOption.quit:
+                        mainMenuOption = PauseMenuOption.controls;
+                        ResumeButton.SetActive(false);
+                        MenuButton.SetActive(false);
+                        OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(true);
                         QuitButton.SetActive(false);
                         break;
                     default:
@@ -169,6 +185,7 @@ public class PauseMenu : MonoBehaviour
                         ResumeButton.SetActive(false);
                         MenuButton.SetActive(true);
                         OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(false);
                         QuitButton.SetActive(false);
                         break;
                     case PauseMenuOption.menu:
@@ -176,13 +193,23 @@ public class PauseMenu : MonoBehaviour
                         ResumeButton.SetActive(false);
                         MenuButton.SetActive(false);
                         OptionsButton.SetActive(true);
+                        ControlsButton.SetActive(false);
                         QuitButton.SetActive(false);
                         break;
                     case PauseMenuOption.options:
+                        mainMenuOption = PauseMenuOption.controls;
+                        ResumeButton.SetActive(false);
+                        MenuButton.SetActive(false);
+                        OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(true);
+                        QuitButton.SetActive(false);
+                        break;
+                    case PauseMenuOption.controls:
                         mainMenuOption = PauseMenuOption.quit;
                         ResumeButton.SetActive(false);
                         MenuButton.SetActive(false);
                         OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(false);
                         QuitButton.SetActive(true);
                         break;
                     case PauseMenuOption.quit:
@@ -190,6 +217,7 @@ public class PauseMenu : MonoBehaviour
                         ResumeButton.SetActive(true);
                         MenuButton.SetActive(false);
                         OptionsButton.SetActive(false);
+                        ControlsButton.SetActive(false);
                         QuitButton.SetActive(false);
                         break;
                     default:
@@ -206,6 +234,7 @@ public class PauseMenu : MonoBehaviour
         ResumeButton.SetActive(true);
         MenuButton.SetActive(false);
         OptionsButton.SetActive(false);
+        ControlsButton.SetActive(false);
         QuitButton.SetActive(false);
     }
 
@@ -226,6 +255,10 @@ public class PauseMenu : MonoBehaviour
             else if (t.mainMenuOption.Equals(PauseMenuOption.options))
             {
                 OptionsButton = t.bg;
+            }
+            else if (t.mainMenuOption.Equals(PauseMenuOption.controls))
+            {
+                ControlsButton = t.bg;
             }
             else if (t.mainMenuOption.Equals(PauseMenuOption.quit))
             {
@@ -249,6 +282,9 @@ public class PauseMenu : MonoBehaviour
                     break;
                 case PauseMenuOption.options:
                     ShowOptions();
+                    break;
+                case PauseMenuOption.controls:
+                    ShowControls();
                     break;
                 case PauseMenuOption.quit:
                     Quit();
@@ -439,6 +475,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(false);
+        controlsMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
         Debug.Log("should resume wooooooooo");
@@ -464,6 +501,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("options work?");
         optionsMenuUI.SetActive(true);
         pauseMenuUI.SetActive(false);
+        controlsMenuUI.SetActive(false);
         GameIsInOptions = true;
        
     }
@@ -472,7 +510,14 @@ public class PauseMenu : MonoBehaviour
     {
         optionsMenuUI.SetActive(false);
         pauseMenuUI.SetActive(true);
+        controlsMenuUI.SetActive(false);
+    }
 
+    public void ShowControls()
+    {
+        optionsMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(false);
+        controlsMenuUI.SetActive(true);
     }
 
     public void Quit()
