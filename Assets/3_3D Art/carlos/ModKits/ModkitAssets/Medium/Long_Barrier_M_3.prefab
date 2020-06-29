@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6837912149850807264}
   m_Layer: 0
   m_Name: Long_Barrier_M_3
-  m_TagString: Untagged
+  m_TagString: TrackColliders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,6 +120,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrier_M
       objectReference: {fileID: 0}
+    - target: {fileID: 8777815696362540960, guid: 81ebfc0c72ad10b4894de1b8f775ea37,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ea2c946e043dd843a45c460f890d6b2, type: 2}
     - target: {fileID: 4024213934510672781, guid: 81ebfc0c72ad10b4894de1b8f775ea37,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,11 +180,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8777815696362540960, guid: 81ebfc0c72ad10b4894de1b8f775ea37,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4ea2c946e043dd843a45c460f890d6b2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81ebfc0c72ad10b4894de1b8f775ea37, type: 3}
 --- !u!4 &5391890643141396450 stripped
