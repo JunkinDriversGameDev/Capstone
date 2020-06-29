@@ -43,32 +43,32 @@ public class Vehicle_Collisions : MonoBehaviour
     private void OnCollisionEnter(Collision c)
     {
 
-        if (c.gameObject.CompareTag("TrackColliders"))
-        {
-            //if (!isLimitCollision)
-            //{
-            //  isLimitCollision = true;
-            temp_accel = 1 + (vehicleBehavior.accel_magnitude_float / 100);
-            vehicleBehavior.accel_magnitude_float = 0;
-            //vehicleBehavior.hasVehicleControl = false;
-            // Calculate Angle Between the collision point and the player
-            Vector3 dir = c.contacts[0].point - transform.position;
-            //Vector3 dir = gameObject.transform.position + new Vector3(0,0,-100);
-            Debug.Log("Contact Point" + dir);
-            // We then get the opposite (-Vector3) and normalize it
-            dir.Normalize();
-            // And finally we add force in the direction of dir and multiply it by force. 
-            //This will push back the player
-            //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, dir, 0.1f);
-            dF.AddForce(dir.x, dir.y, dir.z * (damageForce + temp_accel), (ForceMode.Acceleration));
-            crashSource.PlayOneShot(crash);
-            vehicleBehavior.accel_magnitude_float = -((temp_accel) * 25);
-            //StartCoroutine(LimitCollision());
-            //}
-        }
+        //if (c.gameObject.CompareTag("TrackColliders"))
+        //{
+        //    //if (!isLimitCollision)
+        //    //{
+        //    //  isLimitCollision = true;
+        //    temp_accel = 1 + (vehicleBehavior.accel_magnitude_float / 100);
+        //    vehicleBehavior.accel_magnitude_float = 0;
+        //    //vehicleBehavior.hasVehicleControl = false;
+        //    // Calculate Angle Between the collision point and the player
+        //    Vector3 dir = c.contacts[0].point - transform.position;
+        //    //Vector3 dir = gameObject.transform.position + new Vector3(0,0,-100);
+        //    Debug.Log("Contact Point" + dir);
+        //    // We then get the opposite (-Vector3) and normalize it
+        //    dir.Normalize();
+        //    // And finally we add force in the direction of dir and multiply it by force. 
+        //    //This will push back the player
+        //    //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, dir, 0.1f);
+        //    dF.AddForce(dir.x, dir.y, dir.z * (damageForce + temp_accel), (ForceMode.Acceleration));
+        //    crashSource.PlayOneShot(crash);
+        //    vehicleBehavior.accel_magnitude_float = -((temp_accel) * 25);
+        //    //StartCoroutine(LimitCollision());
+        //    //}
+        //}
         if (c.transform != transform)
         {
-            if (c.gameObject.CompareTag("Obstacle"))
+            if (c.gameObject.CompareTag("Obstacle") || c.gameObject.CompareTag("Maxine_Extra_Parts") || c.gameObject.CompareTag("Toby_Extra_Part"))
             {
                 
                 if (!isLimitCollision && !collisionsDisabled)
