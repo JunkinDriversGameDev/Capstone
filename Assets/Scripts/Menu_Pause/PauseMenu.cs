@@ -281,7 +281,7 @@ public class PauseMenu : MonoBehaviour
                     Menu();
                     break;
                 case PauseMenuOption.options:
-                    //ShowOptions();
+                    ShowOptions();
                     break;
                 case PauseMenuOption.controls:
                     ShowControls();
